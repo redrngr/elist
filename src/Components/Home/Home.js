@@ -8,13 +8,17 @@ import './Home.css';
 class Home extends React.Component {
   render() {
     return (
-      <main className="main-home">
-        <Nav />
-        <div className="container pt-3">
-          <Header />
-          <List />
-        </div>
-      </main>
+      <div className="home">
+        <aside>
+          <Nav />
+        </aside>
+        <main>
+          <div className="container pt-3">
+            <Header />
+            <List />
+          </div>
+        </main>
+      </div>
     )
   }
 }

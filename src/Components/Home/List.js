@@ -5,7 +5,7 @@ import Card from './Card';
 class List extends React.Component {
   render() {
     return (
-      <div className="d-flex flex-wrap justify-content-around">
+      <div className="nowrap d-flex flex-wrap justify-content-between">
         <Card />
         <Card />
         <Card />

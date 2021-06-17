@@ -6,7 +6,6 @@ class Nav extends React.Component {
     super(props);
     this.state = {
       isToggle: false
-
     };
   }
 
@@ -17,7 +16,7 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <div className="d-flex flex-column flex-shrink-0 p-3 pb-4 text-white bg-dark" style={{ width: "280px" }}>
+      <nav className="d-flex flex-column p-3 pb-4 text-white bg-dark">
         <Link
           to="/"
           className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
@@ -65,7 +64,7 @@ class Nav extends React.Component {
           </Link>
           {(this.state.isToggle) ? <DropMenu onOutside={() => this.setState({ isToggle: false })} /> : null}
         </div>
-      </div>
+      </nav>
     )
   }
 }

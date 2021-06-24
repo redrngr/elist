@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
-import App from './Components/App';
-import './bootstrap.min.css';
-import './index.css';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import App from './components/App';
+import './assets/styles/bootstrap.min.css';
+import './assets/styles/index.css';
+import store from './store';
 
 ReactDOM.render((
-  <BrowserRouter>
-    <Switch>
-      <Route path="/" component={App} />
-    </Switch>
-  </BrowserRouter>
+  <Router>
+    <Route path="/home" render={() => <App store={store.employeesList} />} />
+  </Router>
 ), document.getElementById('root'));

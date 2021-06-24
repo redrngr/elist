@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../bootstrap-logo.svg';
+import logo from '../assets/bootstrap-logo.svg';
 
 class Register extends React.Component {
 

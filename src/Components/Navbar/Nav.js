@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -18,41 +18,29 @@ class Nav extends React.Component {
     return (
       <nav className="d-flex flex-column p-3 pb-4 text-white bg-dark">
         <Link
-          to="/"
+          to="/home"
           className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
         >
           <svg className="bi me-2" width="40" height="32"><use href="#bootstrap" /></svg>
           <span className="fs-4">eList</span>
         </Link>
         <hr />
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <Link to="/" className="nav-link active" aria-current="page">
+        <ul className="nav nav-pills flex-column mb-auto">
+          <li className="nav-item">
+            <NavLink to="/employees" className="nav-link text-white" aria-current="page" activeClassName="active">
               <svg className="bi me-2" width="16" height="16"><use href="#grid" /></svg>
               Employees
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/" className="nav-link text-white">
+            <NavLink to="/add" className="nav-link text-white" activeClassName="active">
               <svg className="bi me-2" width="16" height="16"><use href="#people-circle" /></svg>
               Add employee
-            </Link>
-          </li>
-          <li>
-            <Link to="/" className="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16"><use href="#table" /></svg>
-              Orders
-            </Link>
-          </li>
-          <li>
-            <Link to="/" className="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16"><use href="#people-circle" /></svg>
-              Customers
-            </Link>
+            </NavLink>
           </li>
         </ul>
         <hr />
-        <div class="dropdown">
+        <div className="dropdown">
           <Link
             to="#"
             className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"

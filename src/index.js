@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import App from './components/App';
 import './assets/styles/bootstrap.min.css';
 import './assets/styles/index.css';
-import store from './store';
+import { store } from './store';
 
 ReactDOM.render((
-  <Router>
-    <Route path="/" render={() => <App store={store.employeesList} />} />
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <Switch>
+        <Route path="/" component={App} />
+      </Switch>
+    </Router>
+  </Provider>
 ), document.getElementById('root'));

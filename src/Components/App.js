@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
@@ -11,6 +12,16 @@ import Employee from './Home/Employee/Employee';
 import '../assets/ava.svg';
 import '../assets/styles/Home.css';
 
+const mapStateToProps = (state) => {
+  return {
+    appLoaded: state.common.appLoaded,
+    currentUser: state.common.currentUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return;
+}
 
 const App = (state) => {
   return (
@@ -35,4 +46,4 @@ const App = (state) => {
   )
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

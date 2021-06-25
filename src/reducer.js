@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import auth from './reducers/auth';
-import home from './reducers/home';
+import list from './reducers/list';
 import navbar from './reducers/navbar';
+import add from './reducers/add';
 
-export default combineReducers({ auth, home, navbar });
+export default combineReducers({ auth, list, navbar, add });

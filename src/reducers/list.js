@@ -1,6 +1,6 @@
 import {
-  HOME_PAGE_LOADED,
-  HOME_PAGE_UNLOADED,
+  LIST_PAGE_LOADED,
+  LIST_PAGE_UNLOADED,
   DELETE_EMPLOYEE
 } from "../actiontypes";
 
@@ -241,9 +241,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case HOME_PAGE_LOADED:
+    case LIST_PAGE_LOADED:
       return state;
-    case HOME_PAGE_UNLOADED:
+    case LIST_PAGE_UNLOADED:
       return {};
     case DELETE_EMPLOYEE:
       return {

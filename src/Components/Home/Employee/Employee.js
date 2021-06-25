@@ -9,7 +9,7 @@ const Employee = (props) => {
       <img className="card-img-top" src={pic} alt="Pic" />
       <div className="card-body">
         <h5 className="card-title">{user.name}</h5>
-        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p className="card-text">Ut incididunt quis reprehenderit aliquip voluptate cupidatat. Deserunt excepteur eu adipisicing ex enim. Cupidatat non veniam eu in ipsum aute deserunt aute. Aute consectetur dolor irure aliqua esse aliqua dolor. Ipsum anim nisi esse sunt ipsum esse ea laborum.</p>
         {/* <Link className="btn btn-primary">Show more</Link> */}
       </div>
     </div>

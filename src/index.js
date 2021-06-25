@@ -8,6 +8,6 @@ import store from './store';
 
 ReactDOM.render((
   <Router>
-    <Route path="/home" render={() => <App store={store.employeesList} />} />
+    <Route path="/" render={() => <App store={store.employeesList} />} />
   </Router>
 ), document.getElementById('root'));

@@ -18,7 +18,7 @@ class Nav extends React.Component {
     return (
       <nav className="d-flex flex-column p-3 pb-4 text-white bg-dark">
         <Link
-          to="/home"
+          to="/"
           className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
         >
           <svg className="bi me-2" width="40" height="32"><use href="#bootstrap" /></svg>

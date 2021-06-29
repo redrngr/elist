@@ -1,10 +1,7 @@
 import { GET_EMPLOYEE } from "../actiontypes";
 
-const initialState = {
-  employee: [],
-};
 
-const card = (state = initialState, action) => {
+const card = (state = {}, action) => {
   switch (action.type) {
     case GET_EMPLOYEE:
       return {

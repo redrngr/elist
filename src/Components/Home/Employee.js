@@ -4,6 +4,7 @@ import * as axios from 'axios';
 import { GET_EMPLOYEE } from '../../actiontypes';
 import pic from '../../assets/ava.png'
 import '../../assets/styles/Employee.css';
+import Loader from '../Loader';
 
 const mapStateToProps = (state) => ({
   employee: state.card.employee
@@ -15,15 +16,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Employee extends React.Component {
   componentDidMount() {
-    let id = parseInt(this.props.match.params.id, 10);
-    axios.get('https://jsonplaceholder.typicode.com/users')
-      .then(res => {
-        let person = res.data.find((el) => el.id === id);
-        this.props.getEmployee(person);
-      })
+    let id = +this.props.match.params.id;
+    axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .then(res => this.props.getEmployee(res.data));
   }
 
   render() {
+    if (!this.props.employee) return <Loader />;
     return (
       <div className="employee mb-5 p-3" style={{ width: "100%" }}>
         <div className="d-flex flex-column">

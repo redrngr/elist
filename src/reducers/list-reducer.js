@@ -1,4 +1,4 @@
-import { LIST_PAGE_LOADED, SEARCH_TEXT_CHANGE, ASYNC_TOGGLE } from "../actiontypes";
+import { LIST_PAGE_LOADED, SEARCH_FIELD_CHANGE, ASYNC_TOGGLE, DELETE_EMPLOYEE } from "../actiontypes";
 
 const initialState = {
   employees: [],
@@ -13,7 +13,7 @@ const list = (state = initialState, action) => {
         ...state,
         employees: action.payload
       };
-    case SEARCH_TEXT_CHANGE:
+    case SEARCH_FIELD_CHANGE:
       return {
         ...state,
         searchText: action.payload
@@ -22,6 +22,11 @@ const list = (state = initialState, action) => {
       return {
         ...state,
         isAsync: !state.isAsync
+      };
+    case DELETE_EMPLOYEE:
+      return {
+        ...state,
+        employees: state.employees.filter(el => el.id !== action.id)
       };
     default:
       return state;

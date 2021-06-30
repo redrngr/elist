@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Card from './Card';
 import Loader from '../Loader'
-import { LIST_PAGE_LOADED, SEARCH_TEXT_CHANGE, ASYNC_TOGGLE } from '../../actiontypes';
+import { LIST_PAGE_LOADED, SEARCH_FIELD_CHANGE, ASYNC_TOGGLE, DELETE_EMPLOYEE } from '../../actiontypes';
 import * as axios from 'axios';
 
 const mapStateToProps = (state) => ({
@@ -13,22 +13,29 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad: (payload) => dispatch({ type: LIST_PAGE_LOADED, payload }),
-  onChangeText: (payload) => dispatch({ type: SEARCH_TEXT_CHANGE, payload }),
-  onAsync: () => dispatch({ type: ASYNC_TOGGLE })
+  onChangeText: (payload) => dispatch({ type: SEARCH_FIELD_CHANGE, payload }),
+  onAsync: () => dispatch({ type: ASYNC_TOGGLE }),
+  onDeleteCard: (payload, id) => dispatch({ type: DELETE_EMPLOYEE, payload, id })
 });
 
 class List extends React.Component {
   componentDidMount() {
     this.props.onAsync();
-    axios.get('https://jsonplaceholder.typicode.com/users')
+    axios.get('https://my-json-server.typicode.com/redrngr/api/employees')
       .then(res => {
         this.props.onAsync();
         this.props.onLoad(res.data)
       });
   }
 
-  changeText = (event) => {
+  changeText = event => {
     this.props.onChangeText(event.target.value)
+  }
+
+  deleteCard = event => {
+    const id = +event.target.id;
+    const payload = axios.delete(`https://my-json-server.typicode.com/redrngr/api/employees/${id}`)
+    this.props.onDeleteCard(payload, id)
   }
 
   render() {
@@ -48,7 +55,7 @@ class List extends React.Component {
         </div>
         {this.props.isAsync ? <Loader /> :
           (<div className="nowrap d-flex flex-wrap justify-content-between">
-            {this.props.employees.map((el, id) => <Card key={id} state={el} id={id + 1} />)}
+            {this.props.employees.map((el) => <Card key={el.id} state={el} id={el.id} deleteCard={this.deleteCard} />)}
           </div>)
         }
       </>

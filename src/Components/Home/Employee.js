@@ -1,24 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as axios from 'axios';
-import { GET_EMPLOYEE } from '../../actiontypes';
+import { DELETE_EMPLOYEE, GET_EMPLOYEE } from '../../actiontypes';
 import pic from '../../assets/ava.png'
 import '../../assets/styles/Employee.css';
 import Loader from '../Loader';
+import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state) => ({
   employee: state.card.employee
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getEmployee: (payload) => dispatch({ type: GET_EMPLOYEE, payload })
+  getEmployee: (payload) => dispatch({ type: GET_EMPLOYEE, payload }),
+  onDeleteCard: (payload, id) => dispatch({ type: DELETE_EMPLOYEE, payload, id })
 })
 
 class Employee extends React.Component {
+  constructor(props) {
+    super(props);
+    this.id = +this.props.match.params.id;
+  }
+
   componentDidMount() {
-    let id = +this.props.match.params.id;
-    axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+    axios.get(`https://my-json-server.typicode.com/redrngr/api/employees/${this.id}`)
       .then(res => this.props.getEmployee(res.data));
+  }
+
+  deleteCard = () => {
+    const payload = axios.delete(`https://my-json-server.typicode.com/redrngr/api/employees/${this.id}`);
+    this.props.onDeleteCard(payload, this.id);
+    this.props.history.push('/employees');
   }
 
   render() {
@@ -73,9 +85,9 @@ class Employee extends React.Component {
               <label htmlFor="inputZip" className="form-label">Zip</label>
               <input type="text" className="form-control" id="inputZip" value={this.props.employee.address.zipcode} disabled={true} readOnly={true} />
             </div>
-            <div className="d-flex justify-content-end mt-3 mb-3">
-              <button type="submit" className="btn btn-primary">Edit profile</button>
-              <button type="submit" className="btn btn-danger ms-3">Delete employee</button>
+            <div className="d-flex justify-content-between mt-3 mb-3">
+              <Link className="btn btn-danger" to="#" onClick={this.deleteCard}>Delete employee</Link>
+              <button type="submit" className="btn btn-primary ms-3">Edit profile</button>
             </div>
           </form>
         </div>

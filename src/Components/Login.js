@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
 
 class Login extends React.Component {
   componentWillMount() {
-    document.body.classList.add('text-center', 'body-signin');
+    document.body.classList.add('text-center', 'body-signin'); // don't do that
   }
 
   emailChange = event => this.props.onEmailChange(event.target.value);

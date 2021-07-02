@@ -18,8 +18,3 @@ aside > nav {
 main {
   margin-left: 280px;
 }
-
-.nowrap:after {
-  content: "";
-  width: 22%;
-}

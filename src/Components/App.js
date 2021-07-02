@@ -10,7 +10,7 @@ import Add from './Add';
 import NotFounded from './NotFounded';
 import Employee from './Home/Employee';
 import '../assets/ava.svg';
-import '../assets/styles/Home.css';
+import '../assets/styles/List.css';
 import { SHOW_DROP_TOGGLE } from '../actiontypes';
 
 const mapStateToProps = (state) => ({

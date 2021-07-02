@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Card = (props) => {
   return (
-    <div className="card mb-5" style={{ width: "18rem" }}>
+    <div className="card m-3" style={{ width: "18rem" }}>
       <img className="card-img-top" src={pic} alt={props.state.username} />
       <div className="card-body">
         <h5 className="card-title">{props.state.name}</h5>

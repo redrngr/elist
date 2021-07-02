@@ -5,7 +5,7 @@ import logo from '../assets/bootstrap-logo.svg';
 class Register extends React.Component {
 
   componentWillMount() {
-    document.body.classList.add('text-center', 'body-signin');
+    document.body.classList.add('text-center', 'body-signin'); // don't do that
   }
 
   render() {

@@ -1,20 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as axios from 'axios';
-import { DELETE_EMPLOYEE, GET_EMPLOYEE } from '../../actiontypes';
 import pic from '../../assets/ava.png'
 import '../../assets/styles/Employee.css';
 import Loader from '../Loader';
 import { Link } from 'react-router-dom';
+import { getEmployee, deleteCard } from '../../reducers/card-reducer';
 
 const mapStateToProps = (state) => ({
   employee: state.card.employee
 });
-
-const mapDispatchToProps = (dispatch) => ({
-  getEmployee: (payload) => dispatch({ type: GET_EMPLOYEE, payload }),
-  onDeleteCard: (payload, id) => dispatch({ type: DELETE_EMPLOYEE, payload, id })
-})
 
 class Employee extends React.Component {
   constructor(props) {
@@ -23,13 +17,11 @@ class Employee extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`https://my-json-server.typicode.com/redrngr/api/employees/${this.id}`)
-      .then(res => this.props.getEmployee(res.data));
+    this.props.getEmployee(this.id);
   }
 
-  deleteCard = () => {
-    const payload = axios.delete(`https://my-json-server.typicode.com/redrngr/api/employees/${this.id}`);
-    this.props.onDeleteCard(payload, this.id);
+  handleClick = () => {
+    this.props.deleteCard(this.id);
     this.props.history.push('/employees');
   }
 
@@ -86,7 +78,7 @@ class Employee extends React.Component {
               <input type="text" className="form-control" id="inputZip" value={this.props.employee.address.zipcode} disabled={true} readOnly={true} />
             </div>
             <div className="d-flex justify-content-between mt-3 mb-3">
-              <Link className="btn btn-danger" to="#" onClick={this.deleteCard}>Delete employee</Link>
+              <Link className="btn btn-danger" to="#" onClick={this.handleClick}>Delete employee</Link>
               <button type="submit" className="btn btn-primary ms-3">Edit profile</button>
             </div>
           </form>
@@ -96,4 +88,4 @@ class Employee extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Employee);
+export default connect(mapStateToProps, { getEmployee, deleteCard })(Employee);

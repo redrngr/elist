@@ -2,7 +2,7 @@ import * as axios from 'axios';
 
 const instance = axios.create({
   baseURL: 'https://my-json-server.typicode.com/redrngr/api',
-  responseType: 'json'
+  responseType: 'json',
 });
 
 const Auth = {

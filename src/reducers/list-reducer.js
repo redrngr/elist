@@ -2,7 +2,7 @@ import {
   LIST_PAGE_LOADED,
   SEARCH_FIELD_CHANGE,
   ASYNC_TOGGLE,
-  DELETE_EMPLOYEE
+  DELETE_EMPLOYEE,
 } from "../actiontypes";
 
 import agent from '../agent';
@@ -45,6 +45,7 @@ export const changeTextAC = (payload) => ({ type: SEARCH_FIELD_CHANGE, payload }
 export const asyncAC = (inProgress) => ({ type: ASYNC_TOGGLE, inProgress });
 export const deleteCardAC = (payload, id) => ({ type: DELETE_EMPLOYEE, payload, id });
 
+
 export const getEmployees = () => (dispatch) => {
   dispatch(asyncAC(true));
   agent.Employees.all()
@@ -62,6 +63,11 @@ export const searchEmployee = (text) => (dispatch) => {
       dispatch(asyncAC(false));
       dispatch(loadAC(res.data));
     });
+}
+
+export const clearInput = () => (dispatch) => {
+  console.log('da');
+  dispatch(changeTextAC(''));
 }
 
 export const deleteEmployee = (id) => (dispatch) => {

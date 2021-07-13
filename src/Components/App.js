@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
@@ -11,23 +10,13 @@ import NotFounded from './NotFounded';
 import Employee from './Home/Employee';
 import '../assets/ava.svg';
 import '../assets/styles/List.css';
-import { SHOW_DROP_TOGGLE } from '../actiontypes';
-
-const mapStateToProps = (state) => ({
-  isToggle: state.navbar.isToggle
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onToggle: () => dispatch({ type: SHOW_DROP_TOGGLE })
-})
-
 
 class App extends React.Component {
   render() {
     return (
       <div className="home">
         <aside>
-          <Nav isToggle={this.props.isToggle} onToggle={this.props.onToggle} />
+          <Nav />
         </aside>
         <main>
           <div className="container pt-3">
@@ -47,4 +36,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

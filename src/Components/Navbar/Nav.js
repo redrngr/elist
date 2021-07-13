@@ -1,10 +1,18 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import DropMenu from './DropMenu';
+import logo from '../../assets/database.svg';
 
 class Nav extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showDrop: false
+    }
+  }
+
   handleClick = () => {
-    this.props.onToggle()
+    this.setState({ showDrop: !this.state.showDrop })
   }
 
   render() {
@@ -15,8 +23,8 @@ class Nav extends React.Component {
             to="/"
             className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
           >
-            <svg className="bi me-2" width="40" height="32"><use href="#bootstrap" /></svg>
-            <span className="fs-4">eList</span>
+            <img className="bi me-2" src={logo} width="32" height="32" alt="img" />
+            <span className="fs-4"><b>EBase</b></span>
           </Link>
           <hr />
           <ul className="nav nav-pills flex-column mb-auto">
@@ -29,7 +37,7 @@ class Nav extends React.Component {
             <li>
               <NavLink to="/add" className="nav-link text-white" activeClassName="active">
                 <svg className="bi me-2" width="16" height="16"><use href="#people-circle" /></svg>
-                Add employee
+                New employee
               </NavLink>
             </li>
           </ul>
@@ -40,11 +48,11 @@ class Nav extends React.Component {
               className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
               id="dropdownUser1"
               data-bs-toggle="dropdown"
-              aria-expanded={this.props.isToggle}
+              aria-expanded={this.state.showDrop}
               onClick={this.handleClick}>
               <strong>Admin</strong>
             </Link>
-            {this.props.isToggle ? <DropMenu onOutside={this.props.onToggle} /> : null}
+            {this.state.showDrop ? <DropMenu onOutside={this.handleClick} /> : null}
           </div>
         </nav>
       )
@@ -56,7 +64,7 @@ class Nav extends React.Component {
             className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
           >
             <svg className="bi me-2" width="40" height="32"><use href="#bootstrap" /></svg>
-            <span className="fs-4">eList</span>
+            <span className="fs-4">EList</span>
           </Link>
           <hr />
           <ul className="nav nav-pills flex-column mb-auto">

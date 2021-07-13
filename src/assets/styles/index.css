@@ -2,6 +2,7 @@ body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
   background-color: rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
 }
 
 html {
@@ -76,12 +77,6 @@ html {
 }
 
 /* ++++++++++++++++++++++Sing-in+++++++++++++++++ */
-
-.body-signin {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #f5f5f5;
-}
 
 .form-signin {
   width: 100%;

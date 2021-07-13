@@ -1,9 +1,9 @@
 export const LOGIN = "LOGIN";
 export const REGISTER = "REGISTER";
 export const LIST_PAGE_LOADED = "LIST_PAGE_LOADED";
+export const ADD_PAGE_LOADED = "ADD_PAGE_LOADED";
 export const SEARCH_FIELD_CHANGE = "SEARCH_TEXT_CHANGE";
 export const AUTH_FIELD_CHANGE = "AUTH_FIELD_CHANGE";
-export const SHOW_DROP_TOGGLE = "SHOW_DROP_TOGGLE";
 export const ASYNC_TOGGLE = "ASYNC_TOGGLE";
 export const GET_EMPLOYEE = "GET_EMPLOYEE";
 export const DELETE_EMPLOYEE = "DELETE_EMPLOYEE";

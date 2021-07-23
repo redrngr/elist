@@ -1,4 +1,5 @@
-import { ADD_PAGE_LOADED } from "../actiontypes";
+import { ADD_PAGE_LOADED, ASYNC_TOGGLE } from "../actiontypes";
+import agent from "../agent";
 
 
 const initialState = {
@@ -239,16 +240,36 @@ const initialState = {
       "name": "Wyoming",
       "abbreviation": "WY"
     }
-  ]
+  ],
+  addStatus: null
 }
 
 const add = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PAGE_LOADED:
-      return state;
+      return {
+        ...state,
+        addStatus: action.payload
+      };
+    case ASYNC_TOGGLE:
+      return {
+        ...state,
+        inProgress: action.inProgress
+      }
     default:
       return state;
   }
 }
 
+export const asyncAC = (inProgress) => ({ type: ASYNC_TOGGLE, inProgress });
+export const loadAC = (payload) => ({ type: ADD_PAGE_LOADED, payload });
+
+export const addEmployee = (data) => (dispatch) => {
+  dispatch(asyncAC(true));
+  agent.Employees.add(data)
+    .then(res => {
+      dispatch(asyncAC(false));
+      dispatch(loadAC(res.status));
+    });
+}
 export default add;

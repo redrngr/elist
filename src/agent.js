@@ -14,6 +14,7 @@ const Employees = {
   all: () => instance.get('/employees'),
   one: (id) => instance.get(`/employees/${id}`),
   delete: (id) => instance.delete(`/employees/${id}`),
+  add: (data) => instance.post(`/employees`, data),
   search: (text) => instance.get(`/employees?name_like=${text}`)
 };
 

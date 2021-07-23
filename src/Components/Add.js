@@ -1,61 +1,173 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Form, Field } from "react-final-form";
+import { addEmployee } from "../reducers/add-reducer";
+import Loader from "./Loader";
 
 const mapStateToProps = state => ({
-  states: state.add.states
+  states: state.add.states,
+  addStatus: state.add.addStatus
 });
+
+const required = value => (value ? undefined : 'Required');
+const mustBeNumber = value => (isNaN(value) ? 'Must be a number' : undefined);
+const composeValidators = (...validators) => value =>
+  validators.reduce((error, validator) => error || validator(value), undefined);
+
+const onSubmit = values => addEmployee(values);
 
 const Add = (props) => {
   return (
-    <form className="row g-3">
-      <div className="col-md-6">
-        <label htmlFor="inputEmail4" className="form-label">Email</label>
-        <input type="email" className="form-control" id="inputEmail4" placeholder="mail@example.com" />
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="inputTelephone" className="form-label">Telephone number</label>
-        <input type="tel" className="form-control" id="inputTelephone" placeholder="+7(495)937-99-92" />
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="name" className="form-label">Name</label>
-        <input type="text" className="form-control" id="name" placeholder="Uti Putin" />
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="username" className="form-label">Username</label>
-        <input type="text" className="form-control" id="username" placeholder="shishka1999" />
-      </div>
-      <div className="col-12">
-        <label htmlFor="website" className="form-label">Website</label>
-        <input type="text" className="form-control" id="website" placeholder="example.com" />
-      </div>
-      <div className="col-12">
-        <label htmlFor="inputAddress" className="form-label">Address</label>
-        <input type="text" className="form-control" id="inputAddress" placeholder="1234 Main St" />
-      </div>
-      <div className="col-12">
-        <label htmlFor="inputAddress2" className="form-label">Address 2</label>
-        <input type="text" className="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" />
-      </div>
-      <div className="col-md-6">
-        <label htmlFor="inputCity" className="form-label">City</label>
-        <input type="text" className="form-control" id="inputCity" placeholder="Samara" />
-      </div>
-      <div className="col-md-4">
-        <label htmlFor="inputState" className="form-label">State</label>
-        <select id="inputState" className="form-select">
-          <option defaultValue="selected">Choose...</option>
-          {props.states.map((el, id) => <option key={id}>{el.name}</option>)}
-        </select>
-      </div>
-      <div className="col-md-2">
-        <label htmlFor="inputZip" className="form-label">Zip</label>
-        <input type="text" className="form-control" id="inputZip" placeholder="59590-4157" />
-      </div>
-      <div className="col-12 text-end">
-        <button type="submit" className="btn btn-success">Add employee</button>
-      </div>
-    </form>
+    <Form
+      initialValues={{
+        id: Date.now(),
+        email: null,
+        phone: null,
+        name: null,
+        username: null,
+        website: null,
+        suite: null,
+        street: null,
+        city: null,
+        state: null,
+        zipcode: null
+      }}
+      onSubmit={props.onSubmit}
+      render={({ handleSubmit, form, submitting, pristine }) => (
+        <form className="row g-3" onSubmit={handleSubmit}>
+          <div className="col-md-6">
+            <Field name="email" validate={required}>
+              {({ input, meta }) => (
+                <>
+                  <label htmlFor="inputEmail4" className="form-label ps-3">
+                    {(meta.error && meta.touched && <span className="invalid">Please provide an email.</span>) || "Email"}
+                  </label>
+                  <input {...input} className="form-control" type="email" placeholder="mail@example.com" id="inputEmail4" />
+                </>
+              )}
+            </Field>
+          </div>
+          {console.log(submitting)}
+          <div className="col-md-6">
+            <Field name="phone" validate={composeValidators(required, mustBeNumber)}>
+              {({ input, meta }) => (
+                <>
+                  <label htmlFor="inputTelephone" className="form-label ps-3">
+                    {(meta.error && meta.touched && <span className="invalid">Please provide an telephone number.</span>) || "Telephone number"}
+                  </label>
+                  <input {...input} className="form-control" type="tel" placeholder="+7(495)937-99-92" id="inputTelephone" />
+                </>
+              )}
+            </Field>
+          </div>
+          <div className="col-md-6">
+            <Field name="name" validate={required}>
+              {({ input, meta }) => (
+                <>
+                  <label htmlFor="name" className="form-label ps-3">
+                    {(meta.error && meta.touched && <span className="invalid">Please provide the name.</span>) || "Name"}
+                  </label>
+                  <input {...input} className="form-control" type="text" placeholder="Uti Putin" id="name" />
+                </>
+              )}
+            </Field>
+          </div>
+          <div className="col-md-6">
+            <Field name="username" validate={required}>
+              {({ input, meta }) => (
+                <>
+                  <label htmlFor="username" className="form-label ps-3">
+                    {(meta.error && meta.touched && <span className="invalid">Please provide a username.</span>) || "Username"}
+                  </label>
+                  <input {...input} className="form-control" type="text" placeholder="shishka1999" id="username" />
+                </>
+              )}
+            </Field>
+          </div>
+          <div className="col-12">
+            <Field name="website" validate={required}>
+              {({ input, meta }) => (
+                <>
+                  <label htmlFor="website" className="form-label ps-3">
+                    {(meta.error && meta.touched && <span className="invalid">Please provide a website.</span>) || "Website"}
+                  </label>
+                  <input {...input} className="form-control" type="text" placeholder="example.com" id="website" />
+                </>
+              )}
+            </Field>
+          </div>
+          <div className="col-12">
+            <Field name="suite" validate={required}>
+              {({ input, meta }) => (
+                <>
+                  <label htmlFor="inputAddress" className="form-label ps-3">
+                    {(meta.error && meta.touched && <span className="invalid">Please provide an address.</span>) || "Address"}
+                  </label>
+                  <input {...input} className="form-control" type="text" placeholder="1234 Main St" id="inputAddress" />
+                </>
+              )}
+            </Field>
+          </div>
+          <div className="col-12">
+            <Field name="street" validate={required}>
+              {({ input, meta }) => (
+                <>
+                  <label htmlFor="inputAddress2" className="form-label ps-3">
+                    {(meta.error && meta.touched && <span className="invalid">Please provide the street.</span>) || "Street"}
+                  </label>
+                  <input {...input} className="form-control" type="text" placeholder="Apartment, studio, or floor" id="inputAddress2" />
+                </>
+              )}
+            </Field>
+          </div>
+          <div className="col-md-6">
+            <Field name="city" validate={required}>
+              {({ input, meta }) => (
+                <>
+                  <label htmlFor="inputCity" className="form-label ps-3">
+                    {(meta.error && meta.touched && <span className="invalid">Please provide the city.</span>) || "City"}
+                  </label>
+                  <input {...input} className="form-control" type="text" placeholder="Samara" id="inputCity" />
+                </>
+              )}
+            </Field>
+          </div>
+          <div className="col-md-4">
+            <Field name="state" component="select" validate={required}>
+              {({ input, meta }) => (
+                <>
+                  <label htmlFor="inputState" className="form-label ps-3">
+                    {(meta.error && meta.touched && <span className="invalid">Please provide a valid state.</span>) || "State"}
+                  </label>
+                  <select {...input} className="form-select" id="inputState">
+                    <option defaultValue="selected">Choose...</option>
+                    {props.states.map((el, id) => <option key={id}>{el.name}</option>)}
+                  </select>
+                </>
+              )}
+            </Field>
+          </div>
+          <div className="col-md-2">
+            <Field name="zipcode" validate={composeValidators(required, mustBeNumber)}>
+              {({ input, meta }) => (
+                <>
+                  <label htmlFor="inputZip" className="form-label ps-3">
+                    {(meta.error && meta.touched && <span className="invalid">Enter a zipcode.</span>) || "Zip"}
+                  </label>
+                  <input {...input} className="form-control" type="text" placeholder="59590-4157" id="inputZip" />
+                </>
+              )}
+            </Field>
+          </div>
+          <div className="col-12 text-end">
+            <button type="button" className="btn btn-secondary me-2" onClick={form.reset} disabled={submitting || pristine}>Reset</button>
+            <button type="submit" className="btn btn-success" disabled={submitting}>Add employee</button>
+            {!submitting || <Loader message="Sending..." />}
+          </div>
+        </form>
+      )}
+    />
   )
 }
 
-export default connect(mapStateToProps, null)(Add);
+export default connect(mapStateToProps, { onSubmit })(Add);
